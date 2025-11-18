@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Add Student — TP2</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <ul class="navbar">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="attendance.html">Attendance List</a></li>
+      <li><a href="add_student.html" class="active">Add Student</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="logout.html">Logout</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Add New Student (TP2)</h2>
+
+    <form id="studentForm" class="student-form" novalidate>
+      <label for="id">Student ID</label>
+      <input id="id" name="id" type="text" required>
+
+      <label for="lastname">Last Name</label>
+      <input id="lastname" name="lastname" type="text" required>
+
+      <label for="firstname">First Name</label>
+      <input id="firstname" name="firstname" type="text" required>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+
+      <label for="course">Course</label>
+      <input id="course" name="course" type="text" value="AWP">
+
+      <button type="submit">Submit</button>
+      <p id="formMsg" class="muted" style="margin-top:8px;"></p>
+    </form>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

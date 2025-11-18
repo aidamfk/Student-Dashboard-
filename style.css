@@ -1,0 +1,150 @@
+/* Base from user (kept) + TP3 extras */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f6f6f6;
+}
+
+nav {
+  background-color: #A6615A;
+  padding: 10px 0;
+}
+
+.navbar {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  text-decoration: underline;
+}
+
+main {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Table */
+.table-wrap { overflow:auto; }
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 100%;
+  max-width:1200px;
+  background: white;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align:center;
+  vertical-align:middle;
+}
+
+th {
+  background-color: #A6615A;
+  color: white;
+  font-weight:700;
+}
+
+/* Student form */
+.student-form {
+  background: white;
+  padding: 20px;
+  width: 360px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.student-form label {
+  text-align: left;
+  margin-top: 10px;
+  font-weight:600;
+}
+
+.student-form input {
+  padding: 8px;
+  margin-top: 5px;
+  border:1px solid #e6e6e6;
+  border-radius:6px;
+}
+
+button {
+  margin-top: 15px;
+  background-color: #A6615A;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #8e524c;
+}
+
+/* Buttons variants */
+.btn { display:inline-block; padding:8px 10px; border-radius:6px; border:none; background:#A6615A; color:#fff; cursor:pointer; margin-right:8px; }
+.btn.outline { background:transparent; color:#A6615A; border:1px solid rgba(0,0,0,0.06); }
+.btn.warn { background:#ef4444; color:#fff; }
+
+/* small text */
+.small-muted { font-size:13px; color:#666; }
+
+/* Row highlight classes (TP2 requirement) */
+.row-green td { background: #dbf7e6; }   /* fewer than 3 absences */
+.row-yellow td { background: #fff7d9; }  /* 3 - 4 absences */
+.row-red td { background: #ffdede; }     /* 5 or more absences */
+
+/* Message column style */
+.message-cell { text-align:left; padding-left:12px; font-weight:600; color:#333; }
+
+/* Hover highlight for Exercise 5 (jQuery) */
+.hover-highlight td { outline: 2px solid rgba(0,0,0,0.08); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.06); transition: all 150ms ease-in-out; }
+
+/* Animation for excellent students (Exercise 6) */
+.animate-glow {
+  animation: highlightGlow 1.2s ease-in-out infinite alternate;
+}
+@keyframes highlightGlow {
+  from { box-shadow: 0 0 0 rgba(0,0,0,0); transform: translateY(0); }
+  to { box-shadow: 0 12px 30px rgba(166,97,90,0.12); transform: translateY(-4px); }
+}
+
+/* Report card styles */
+.card { background:white; padding:12px; border-radius:8px; margin-bottom:8px; box-shadow: 0 6px 18px rgba(17,24,39,0.04); text-align:left; }
+.card.small { padding:10px; text-align:center; }
+
+/* Responsive */
+@media (max-width:920px) {
+  .student-form { width: 92%; }
+  table { font-size:13px; }
+  th, td { padding:8px; }
+}
+button, .btn {
+  transition: all 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #8e524c;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
