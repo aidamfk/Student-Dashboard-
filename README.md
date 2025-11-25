@@ -1,4 +1,4 @@
-Advanced Web Programming project implementing all Tutorial requirements (HTML/CSS + JavaScript + PHP/Database) # Student-Dashboard-
+Student Dashboard – Advanced Web Programming Project
 ## Features
 
 -  **Student Management** - Add, edit, delete students with validation
@@ -33,4 +33,6 @@ Technologies Used
 ```
 **FIGMA MOBILE DESIGN CONCEPT** https://www.figma.com/make/bYBGxzkWnzGjyYCPYIwCRd/Update-Design-with-New-Images?t=w39N40ASGbfZneBm-20&fullscreen=1
 #A6615A (Terracotta) is the main color.
-thank you for visiting my site !
+🙏 Thank You for Visiting!
+
+This project was created as part of the Advanced Web Programming course.
