@@ -85,15 +85,16 @@ if (!$sessionError && $conn) {
     <div class="logo">📚</div>
     <h1 style="margin:0;font-size:18px;">Student Dashboard</h1>
   </div>
-
+  
   <nav class="nav">
-    <ul class="navbar">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="students.php">Manage Students</a></li>
-      <li><a href="sessions.php" class="active">Sessions</a></li>
-      <li><a href="reports.php">Reports</a></li>
-    </ul>
-  </nav>
+  <ul class="navbar">
+    <li><a href="index.php">Home</a></li>
+    <li><a href="students.php">Manage Students</a></li>
+    <li><a href="sessions.php">Sessions / Attendance</a></li>
+    <li><a href="reports.php">Reports</a></li>
+    <li><a href="logout.php">Logout</a></li>
+  </ul>
+</nav>
 </header>
 
 <main class="page-container">

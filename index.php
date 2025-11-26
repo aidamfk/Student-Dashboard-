@@ -30,21 +30,21 @@ if ($conn) {
 
 <body>
 
-<!-- NAVBAR -->
 <header class="topbar">
   <div class="brand">
     <div class="logo">📚</div>
     <h1>Student Dashboard</h1>
   </div>
-<nav class="nav">
-  <ul class="navbar">
-    <li><a href="index.php" class="active">Home</a></li>
-    <li><a href="students.php">Manage Students</a></li>
-    <li><a href="sessions.php">Sessions / Attendance</a></li>
-    <li><a href="reports.php">Reports</a></li>
-  </ul>
-</nav>
 
+  <nav class="nav">
+    <ul class="navbar">
+      <li><a href="index.php">Home</a></li>
+      <li><a href="students.php">Manage Students</a></li>
+      <li><a href="sessions.php">Sessions / Attendance</a></li>
+      <li><a href="reports.php">Reports</a></li>
+      <li><a href="logout.php">Logout</a></li>
+    </ul>
+  </nav>
 </header>
 
 <!-- HERO SECTION -->

@@ -109,17 +109,17 @@ button:hover {
 .small-muted { font-size:13px; color:#666; }
 
 /* Row highlight classes (TP2 requirement) */
-.row-green td { background: #dbf7e6; }   /* fewer than 3 absences */
-.row-yellow td { background: #fff7d9; }  /* 3 - 4 absences */
-.row-red td { background: #ffdede; }     /* 5 or more absences */
+.row-green td { background: #dbf7e6; }
+.row-yellow td { background: #fff7d9; }
+.row-red td { background: #ffdede; }
 
 /* Message column style */
 .message-cell { text-align:left; padding-left:12px; font-weight:600; color:#333; }
 
-/* Hover highlight for Exercise 5 (jQuery) */
+/* Hover highlight */
 .hover-highlight td { outline: 2px solid rgba(0,0,0,0.08); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.06); transition: all 150ms ease-in-out; }
 
-/* Animation for excellent students (Exercise 6) */
+/* Animation */
 .animate-glow {
   animation: highlightGlow 1.2s ease-in-out infinite alternate;
 }
@@ -128,7 +128,7 @@ button:hover {
   to { box-shadow: 0 12px 30px rgba(166,97,90,0.12); transform: translateY(-4px); }
 }
 
-/* Report card styles */
+/* Report card */
 .card { background:white; padding:12px; border-radius:8px; margin-bottom:8px; box-shadow: 0 6px 18px rgba(17,24,39,0.04); text-align:left; }
 .card.small { padding:10px; text-align:center; }
 
@@ -138,10 +138,175 @@ button:hover {
   table { font-size:13px; }
   th, td { padding:8px; }
 }
+
 button, .btn {
   transition: all 0.2s ease;
-} button:hover,
+}
+
+button:hover,
 .btn:hover {
   background-color: #8e524c;
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15)}
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+/* ========== TOPBAR (HEADER) ========== */
+.topbar {
+    background: #A6615A;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 30px;
+}
+
+.brand h1 {
+    margin: 0;
+    color: white;
+    font-size: 22px;
+}
+
+/* ========== HERO SECTION ========== */
+.hero-container {
+    min-height: 55vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #A6615A 0%, #d4998f 100%);
+    padding: 40px 20px;
+}
+
+.hero-glass {
+    background: rgba(255,255,255,0.15);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.hero-title {
+    font-size: 42px;
+    color: white;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    color: rgba(255,255,255,0.95);
+    font-size: 17px;
+    margin-bottom: 25px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.hero-btn {
+    padding: 12px 25px;
+    background: white;
+    color: #A6615A;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: all 0.25s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+}
+
+.hero-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+/* ========== STATISTICS GRID ========== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.stat-glass {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+    transition: 0.3s;
+}
+
+.stat-glass:hover {
+    transform: translateY(-4px);
+}
+
+.stat-glass h3 {
+    font-size: 36px;
+    margin: 0;
+    color: #A6615A;
+}
+
+/* ========== FEATURES SECTION ========== */
+.features-section {
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.features-section h2 {
+    text-align: center;
+    color: #A6615A;
+    margin-bottom: 25px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
+}
+
+.feature-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+    border-left: 4px solid #A6615A;
+    transition: 0.25s;
+}
+
+.feature-box:hover {
+    transform: translateX(5px);
+}
+
+/* ========== FOOTER ========== */
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.footer p {
+    margin: 0;
+}
+

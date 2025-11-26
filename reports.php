@@ -46,14 +46,15 @@ if ($conn) {
     <h1>Student Dashboard</h1>
   </div>
 
-  <nav class="nav">
-    <ul class="navbar">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="students.php">Manage Students</a></li>
-      <li><a href="sessions.php">Sessions</a></li>
-      <li><a href="reports.php" class="active">Reports</a></li>
-    </ul>
-  </nav>
+ <nav class="nav">
+  <ul class="navbar">
+    <li><a href="index.php">Home</a></li>
+    <li><a href="students.php">Manage Students</a></li>
+    <li><a href="sessions.php">Sessions / Attendance</a></li>
+    <li><a href="reports.php">Reports</a></li>
+    <li><a href="logout.php">Logout</a></li>
+  </ul>
+</nav>
 </header>
 
 <main style="padding:20px; max-width:1200px; margin:0 auto;">
