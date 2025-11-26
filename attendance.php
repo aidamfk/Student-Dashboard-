@@ -82,7 +82,7 @@ if (!$sessionError && $conn) {
 <header class="topbar">
   <div class="brand" style="display:flex;align-items:center;gap:10px;">
     <!-- local screenshot image path you uploaded (will be transformed if needed) -->
-    <img src="/mnt/data/89a43ed6-45dc-4f47-b57c-1110b149f23a.png" alt="logo" style="height:36px; border-radius:6px; object-fit:cover;">
+    <div class="logo">📚</div>
     <h1 style="margin:0;font-size:18px;">Student Dashboard</h1>
   </div>
 
