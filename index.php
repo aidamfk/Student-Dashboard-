@@ -30,88 +30,159 @@ if ($conn) {
 
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <div class="logo">📚</div>
-    <h1>Student Dashboard</h1>
-  </div>
-
-  <nav class="nav">
-    <ul class="navbar">
-      <li><a href="index.php">Home</a></li>
-      <li><a href="students.php">Manage Students</a></li>
-      <li><a href="sessions.php">Sessions / Attendance</a></li>
-      <li><a href="reports.php">Reports</a></li>
-      <li><a href="logout.php">Logout</a></li>
-    </ul>
-  </nav>
-</header>
-
-<!-- HERO SECTION -->
-<div class="hero-container">
-  <div class="hero-glass">
-    <h1 class="hero-title">Student Management System</h1>
-    <p class="hero-subtitle">Manage students, attendance, sessions, and analytics in a unified platform.</p>
-
-    <div class="hero-buttons">
-      <a href="attendance.php" class="hero-btn">Take Attendance</a>
-      <a href="students.php" class="hero-btn secondary">Manage Students</a>
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">👥</div>
+        <div class="sidebar-title">Student Dashboard</div>
+        <div class="sidebar-subtitle">Management System</div>
     </div>
-  </div>
+    
+    <nav class="sidebar-menu">
+        <ul>
+            <li><a href="index.php" class="active"><span class="icon">🏠</span> <span>Dashboard</span></a></li>
+            <li><a href="students.php"><span class="icon">📋</span> <span>Students</span></a></li>
+            <li><a href="sessions.php"><span class="icon">📅</span> <span>Attendance</span></a></li>
+            <li><a href="reports.php"><span class="icon">📊</span> <span>Reports</span></a></li>
+        </ul>
+    </nav>
+    
+    <div class="sidebar-logout">
+        <a href="logout.php"><span class="icon">🚪</span> <span>Logout</span></a>
+    </div>
 </div>
 
-<!-- STATISTICS GRID -->
-<section class="stats-grid">
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <h1>DASHBOARD</h1>
+        <div class="topbar-actions">
+            <div class="topbar-icon">💾</div>
+            <div class="topbar-icon">⚙️</div>
+            <div class="topbar-icon">🔔</div>
+        </div>
+    </div>
 
-  <div class="stat-glass">
-    <h3><?php echo $totalStudents; ?></h3>
-    <p>Total Students</p>
-  </div>
+    <!-- CONTENT -->
+    <div class="content-section">
 
-  <div class="stat-glass">
-    <h3><?php echo $openSessions; ?></h3>
-    <p>Open Sessions</p>
-  </div>
-
-  <div class="stat-glass">
-    <h3><?php echo $todaysSessions; ?></h3>
-    <p>Today's Sessions</p>
-  </div>
-
-</section>
-
-<!-- FEATURE GRID -->
-<section class="features-section">
-    <h2>System Features</h2>
-
-    <div class="feature-grid">
-
-        <div class="feature-box">
-            <h4>📋 Attendance</h4>
-            <p>Record presence and participation across 6 sessions.</p>
+        <!-- WELCOME HERO CARD -->
+        <div class="card" style="background: linear-gradient(135deg, #FFB84D 0%, #F2994A 100%); color: white; padding: 50px 40px; text-align: center; margin-bottom: 30px;">
+            <h1 style="font-size: 42px; margin-bottom: 15px; color: white;">Welcome to Student Management</h1>
+            <p style="font-size: 18px; margin-bottom: 30px; opacity: 0.95;">Manage students, track attendance, and analyze performance all in one place.</p>
+            
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <a href="attendance.php" class="btn" style="background: white; color: #FFB84D; padding: 15px 30px; font-size: 16px;">
+                    📝 Take Attendance
+                </a>
+                <a href="students.php" class="btn btn-outline" style="border-color: white; color: white; padding: 15px 30px; font-size: 16px;">
+                    👥 Manage Students
+                </a>
+            </div>
         </div>
 
-        <div class="feature-box">
-            <h4>👥 Student Management</h4>
-            <p>Add, edit, update, and delete students from the database.</p>
+        <!-- STATISTICS GRID -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Students</div>
+                <div class="stat-value"><?php echo $totalStudents; ?></div>
+                <div class="stat-change">📚 Enrolled</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Open Sessions</div>
+                <div class="stat-value"><?php echo $openSessions; ?></div>
+                <div class="stat-change">🟢 Active Now</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Today's Sessions</div>
+                <div class="stat-value"><?php echo $todaysSessions; ?></div>
+                <div class="stat-change">📅 Scheduled</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">System Status</div>
+                <div class="stat-value" style="font-size: 28px; color: #48BB78;">✓</div>
+                <div class="stat-change" style="color: #48BB78;">All Systems Operational</div>
+            </div>
         </div>
 
-        <div class="feature-box">
-            <h4>📊 Reports & Analytics</h4>
-            <p>Generate charts and view performance statistics.</p>
+        <!-- FEATURES SECTION -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">System Features</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                
+                <div style="padding: 25px; background: #F7FAFC; border-radius: 10px; border-left: 4px solid #FFB84D;">
+                    <div style="font-size: 32px; margin-bottom: 10px;">📋</div>
+                    <h3 style="color: #2D3748; margin-bottom: 10px; font-size: 18px;">Attendance Tracking</h3>
+                    <p style="color: #718096; font-size: 14px; line-height: 1.6;">
+                        Record presence and participation across 6 sessions with automatic calculations.
+                    </p>
+                </div>
+
+                <div style="padding: 25px; background: #F7FAFC; border-radius: 10px; border-left: 4px solid #48BB78;">
+                    <div style="font-size: 32px; margin-bottom: 10px;">👥</div>
+                    <h3 style="color: #2D3748; margin-bottom: 10px; font-size: 18px;">Student Management</h3>
+                    <p style="color: #718096; font-size: 14px; line-height: 1.6;">
+                        Add, edit, update, and delete students with validation and database integration.
+                    </p>
+                </div>
+
+                <div style="padding: 25px; background: #F7FAFC; border-radius: 10px; border-left: 4px solid #667eea;">
+                    <div style="font-size: 32px; margin-bottom: 10px;">📊</div>
+                    <h3 style="color: #2D3748; margin-bottom: 10px; font-size: 18px;">Reports & Analytics</h3>
+                    <p style="color: #718096; font-size: 14px; line-height: 1.6;">
+                        Generate charts and view detailed performance statistics and insights.
+                    </p>
+                </div>
+
+                <div style="padding: 25px; background: #F7FAFC; border-radius: 10px; border-left: 4px solid #F56565;">
+                    <div style="font-size: 32px; margin-bottom: 10px;">🎓</div>
+                    <h3 style="color: #2D3748; margin-bottom: 10px; font-size: 18px;">Session Management</h3>
+                    <p style="color: #718096; font-size: 14px; line-height: 1.6;">
+                        Create and close attendance sessions for each course and group.
+                    </p>
+                </div>
+
+            </div>
         </div>
 
-        <div class="feature-box">
-            <h4>🎓 Session Management</h4>
-            <p>Create and close attendance sessions for each course.</p>
+        <!-- QUICK ACTIONS -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Quick Actions</h2>
+            </div>
+
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="students.php" class="btn btn-primary">
+                    ➕ Add New Student
+                </a>
+                <a href="sessions.php" class="btn btn-success">
+                    📅 Create Session
+                </a>
+                <a href="reports.php" class="btn btn-outline">
+                    📈 View Reports
+                </a>
+                <a href="attendance.php" class="btn btn-secondary">
+                    📋 View Attendance
+                </a>
+            </div>
         </div>
 
     </div>
-</section>
 
-<footer class="footer">
-  <p>Student Management System — © <?php echo date('Y'); ?></p>
-</footer>
+    <!-- FOOTER -->
+    <div style="text-align: center; padding: 30px; color: #718096; font-size: 14px;">
+        <p>Student Management System © <?php echo date('Y'); ?> — Advanced Web Programming</p>
+    </div>
+
+</div>
 
 <script src="script.js"></script>
 

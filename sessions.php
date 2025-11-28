@@ -1,7 +1,4 @@
 <?php
-/**
- * Unified Session Management (Tutorial 3 - Exercise 5)
- */
 require_once 'db_connect.php';
 
 $message = '';
@@ -59,6 +56,9 @@ if ($conn) {
         $error = "Error: " . $e->getMessage();
     }
 }
+
+$openCount = count(array_filter($sessions, fn($s) => $s['status'] === 'open'));
+$closedCount = count(array_filter($sessions, fn($s) => $s['status'] === 'closed'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,136 +70,208 @@ if ($conn) {
 </head>
 <body>
 
-<!-- TOP HEADER (same as index & students) -->
-<header class="topbar">
-  <div class="brand">
-    <div class="logo">🎓</div>
-    <h1>Student Dashboard</h1>
-  </div>
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">👥</div>
+        <div class="sidebar-title">Student Dashboard</div>
+        <div class="sidebar-subtitle">Management System</div>
+    </div>
+    
+    <nav class="sidebar-menu">
+        <ul>
+            <li><a href="index.php"><span class="icon">🏠</span> <span>Dashboard</span></a></li>
+            <li><a href="students.php"><span class="icon">📋</span> <span>Students</span></a></li>
+            <li><a href="sessions.php" class="active"><span class="icon">📅</span> <span>Attendance</span></a></li>
+            <li><a href="reports.php"><span class="icon">📊</span> <span>Reports</span></a></li>
+        </ul>
+    </nav>
+    
+    <div class="sidebar-logout">
+        <a href="logout.php"><span class="icon">🚪</span> <span>Logout</span></a>
+    </div>
+</div>
 
-  <nav class="nav">
-  <ul class="navbar">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="students.php">Manage Students</a></li>
-    <li><a href="sessions.php">Sessions / Attendance</a></li>
-    <li><a href="reports.php">Reports</a></li>
-    <li><a href="logout.php">Logout</a></li>
-  </ul>
-</nav>
-</header>
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <h1>SESSION MANAGEMENT</h1>
+        <div class="topbar-actions">
+            <div class="topbar-icon">💾</div>
+            <div class="topbar-icon">⚙️</div>
+            <div class="topbar-icon">🔔</div>
+        </div>
+    </div>
 
-<main style="padding:20px; max-width:1400px; margin:0 auto;">
+    <!-- CONTENT -->
+    <div class="content-section">
 
-    <!-- PAGE TITLE -->
-    <h1 style="color:#A6615A; margin-bottom:10px;">Session Management</h1>
-    <p style="color:#666; margin-bottom:25px;">Create, view, and close attendance sessions (Tutorial 3)</p>
+        <!-- MESSAGES -->
+        <?php if ($message): ?>
+            <div class="message success">
+                ✅ <?= htmlspecialchars($message) ?>
+            </div>
+        <?php endif; ?>
 
-    <!-- Messages -->
-    <?php if ($message): ?>
-        <div class="message success"><?= htmlspecialchars($message) ?></div>
-    <?php endif; ?>
+        <?php if ($error): ?>
+            <div class="message error">
+                ⚠️ <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
 
-    <?php if ($error): ?>
-        <div class="message error"><?= htmlspecialchars($error) ?></div>
-    <?php endif; ?>
+        <!-- STATISTICS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Sessions</div>
+                <div class="stat-value"><?= count($sessions) ?></div>
+                <div class="stat-change">📅 All Time</div>
+            </div>
 
-    <div style="display:grid; grid-template-columns:1fr 2fr; gap:20px;">
+            <div class="stat-card">
+                <div class="stat-label">Open Sessions</div>
+                <div class="stat-value" style="color: #48BB78;"><?= $openCount ?></div>
+                <div class="stat-change" style="color: #48BB78;">🟢 Active</div>
+            </div>
 
-        <!-- Create Session Form -->
-        <div class="card">
-            <h2>Create New Session</h2>
+            <div class="stat-card">
+                <div class="stat-label">Closed Sessions</div>
+                <div class="stat-value" style="color: #718096;"><?= $closedCount ?></div>
+                <div class="stat-change" style="color: #718096;">⚫ Completed</div>
+            </div>
 
-            <form method="POST" action="" class="student-form">
-                <input type="hidden" name="create" value="1">
-
-                <label for="course_id">Course ID *</label>
-                <input type="text" id="course_id" name="course_id" value="AWP" required>
-
-                <label for="group_id">Group ID *</label>
-                <input type="text" id="group_id" name="group_id" required>
-
-                <label for="professor">Professor Name *</label>
-                <input type="text" id="professor" name="professor" required>
-
-                <label for="date">Date *</label>
-                <input type="date" id="date" name="date" value="<?= date('Y-m-d') ?>" required>
-
-                <button type="submit">Create Session</button>
-            </form>
+            <div class="stat-card">
+                <div class="stat-label">Today's Date</div>
+                <div class="stat-value" style="font-size: 20px;"><?= date('M d') ?></div>
+                <div class="stat-change">📆 <?= date('Y') ?></div>
+            </div>
         </div>
 
-        <!-- Sessions List -->
-        <div class="card">
-            <h2>All Sessions (<?= count($sessions) ?>)</h2>
+        <div style="display:grid; grid-template-columns:1fr 2fr; gap:25px;">
 
-            <?php if (empty($sessions)): ?>
-                <div class="empty"><p>No sessions yet. Create a session to begin.</p></div>
-            <?php else: ?>
-            <div style="overflow-x:auto;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Course</th>
-                            <th>Group</th>
-                            <th>Date</th>
-                            <th>Opened By</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+            <!-- Create Session Form -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">➕ Create New Session</h2>
+                </div>
 
-                    <tbody>
-                    <?php foreach ($sessions as $s): ?>
-                        <tr>
-                            <td><?= $s['id'] ?></td>
-                            <td><?= htmlspecialchars($s['course_id']) ?></td>
-                            <td><?= htmlspecialchars($s['group_id']) ?></td>
-                            <td><?= htmlspecialchars($s['date']) ?></td>
-                            <td><?= htmlspecialchars($s['opened_by']) ?></td>
+                <form method="POST" action="" class="student-form">
+                    <input type="hidden" name="create" value="1">
 
-                            <td>
-                                <span class="status-badge status-<?= $s['status'] ?>">
-                                    <?= ucfirst($s['status']) ?>
-                                </span>
-                            </td>
+                    <div class="form-group">
+                        <label for="course_id">Course ID *</label>
+                        <input type="text" id="course_id" name="course_id" value="AWP" placeholder="e.g., AWP" required>
+                    </div>
 
-                            <td><?= date('Y-m-d H:i', strtotime($s['created_at'])) ?></td>
+                    <div class="form-group">
+                        <label for="group_id">Group ID *</label>
+                        <input type="text" id="group_id" name="group_id" placeholder="e.g., G1, G2" required>
+                    </div>
 
-                            <td style="display:flex; gap:8px;">
+                    <div class="form-group">
+                        <label for="professor">Professor Name *</label>
+                        <input type="text" id="professor" name="professor" placeholder="e.g., Prof. Benali" required>
+                    </div>
 
-                                <!-- Take Attendance -->
-                                <a href="attendance.php?session_id=<?= $s['id'] ?>"
-                                   class="btn"
-                                   style="padding:6px 10px;">
-                                   Take Attendance
-                                </a>
+                    <div class="form-group">
+                        <label for="date">Date *</label>
+                        <input type="date" id="date" name="date" value="<?= date('Y-m-d') ?>" required>
+                    </div>
 
-                                <!-- Close Session -->
-                                <?php if ($s['status'] === 'open'): ?>
-                                    <a href="sessions.php?close=<?= $s['id'] ?>"
-                                       class="btn warn"
-                                       onclick="return confirm('Close this session?');"
-                                       style="padding:6px 10px;">
-                                       Close
-                                    </a>
-                                <?php else: ?>
-                                    <span style="color:#999;">Closed</span>
-                                <?php endif; ?>
-
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        ✨ Create Session
+                    </button>
+                </form>
             </div>
-            <?php endif; ?>
+
+            <!-- Sessions List -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📋 All Sessions (<?= count($sessions) ?>)</h2>
+                    <div>
+                        <button class="btn btn-outline btn-sm" onclick="window.location.reload()">
+                            🔄 Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <?php if (empty($sessions)): ?>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📅</div>
+                        <p>No sessions yet. Create a session to begin tracking attendance.</p>
+                    </div>
+                <?php else: ?>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Course</th>
+                                <th>Group</th>
+                                <th>Date</th>
+                                <th>Opened By</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <?php foreach ($sessions as $s): ?>
+                            <tr>
+                                <td><strong>#<?= $s['id'] ?></strong></td>
+                                <td><?= htmlspecialchars($s['course_id']) ?></td>
+                                <td><?= htmlspecialchars($s['group_id']) ?></td>
+                                <td><?= htmlspecialchars($s['date']) ?></td>
+                                <td><?= htmlspecialchars($s['opened_by']) ?></td>
+
+                                <td>
+                                    <span class="status-badge status-<?= $s['status'] ?>">
+                                        <?= $s['status'] === 'open' ? '🟢' : '⚫' ?> <?= ucfirst($s['status']) ?>
+                                    </span>
+                                </td>
+
+                                <td><?= date('Y-m-d H:i', strtotime($s['created_at'])) ?></td>
+
+                                <td style="display:flex; gap:8px; flex-wrap:wrap;">
+
+                                    <!-- Take Attendance -->
+                                    <a href="attendance.php?session_id=<?= $s['id'] ?>"
+                                       class="btn btn-primary btn-sm">
+                                       📝 Attendance
+                                    </a>
+
+                                    <!-- Close Session -->
+                                    <?php if ($s['status'] === 'open'): ?>
+                                        <a href="sessions.php?close=<?= $s['id'] ?>"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Close this session?');">
+                                           🔒 Close
+                                        </a>
+                                    <?php else: ?>
+                                        <span style="color:#999; font-size:12px;">Closed</span>
+                                    <?php endif; ?>
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+
         </div>
 
     </div>
 
-</main>
+    <!-- FOOTER -->
+    <div style="text-align: center; padding: 30px; color: #718096; font-size: 14px;">
+        <p>Student Management System © <?= date('Y') ?> — Tutorial 3 - Exercise 5</p>
+    </div>
+
+</div>
 
 </body>
 </html>
