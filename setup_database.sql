@@ -1,5 +1,4 @@
--- Tutorial 3 - Exercise 4 & 5
--- Database Setup Script
+-- Tutorial 1, 2, 3 - Complete Database Setup
 -- Run this in phpMyAdmin or MySQL command line
 
 CREATE DATABASE IF NOT EXISTS student_dashboard 
@@ -7,19 +6,21 @@ CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE student_dashboard;
 
--- Students table (Exercise 4)
+-- Students table (Exercise 4 - Tutorial 3 + Email from Tutorial 1)
 CREATE TABLE IF NOT EXISTS students (
     id INT AUTO_INCREMENT PRIMARY KEY,
     fullname VARCHAR(255) NOT NULL,
     matricule VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL,
     group_id VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_matricule (matricule),
-    INDEX idx_group (group_id)
+    INDEX idx_group (group_id),
+    INDEX idx_email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Attendance sessions table (Exercise 5)
+-- Attendance sessions table (Exercise 5 - Tutorial 3)
 CREATE TABLE IF NOT EXISTS attendance_sessions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     course_id VARCHAR(50) NOT NULL,
@@ -45,17 +46,18 @@ CREATE TABLE IF NOT EXISTS attendance_records (
     recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (session_id) REFERENCES attendance_sessions(id) ON DELETE CASCADE,
     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_session_student (session_id, student_id),
     INDEX idx_session (session_id),
     INDEX idx_student (student_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Insert sample data
-INSERT INTO students (fullname, matricule, group_id) VALUES
-('Boucenna Lyna', '1001', 'G1'),
-('Belhinous Hiba', '1002', 'G1'),
-('Aida Moufouki', '1003', 'G2'),
-('kebir Karim', '1004', 'G1'),
-('Messouaf Imane', '1005', 'G2');
+INSERT INTO students (fullname, matricule, email, group_id) VALUES
+('Boucenna Lyna', '1001', 'lyna.boucenna@univ-algiers.dz', 'G1'),
+('Belhinous Hiba', '1002', 'hiba.belhinous@univ-algiers.dz', 'G1'),
+('Aida Moufouki', '1003', 'aida.moufouki@univ-algiers.dz', 'G2'),
+('Kebir Karim', '1004', 'karim.kebir@univ-algiers.dz', 'G1'),
+('Messouaf Imane', '1005', 'imane.messouaf@univ-algiers.dz', 'G2');
 
 -- Insert sample sessions
 INSERT INTO attendance_sessions (course_id, group_id, date, opened_by, status) VALUES

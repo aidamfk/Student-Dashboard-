@@ -2,11 +2,11 @@ Student Dashboard – Advanced Web Programming Project
 ## Features
 
 -  **Student Management** - Add, edit, delete students with validation
--  **Attendance Tracking** - 6 sessions with Present/Participated checkboxes
+-  **Attendance Tracking** -  sessions with Present/Participated checkboxes
 -  **Session Management** - Create & close attendance sessions
 -  **Reports & Analytics** - Charts and statistics
 -  **Form Validation** - Real-time client-side validation
--  **Database Integration** - MySQL with PDO
+-  **Database Integration** - MySQL
  Project Structure
 ```
 student-dashboard/
@@ -31,8 +31,7 @@ Technologies Used
 - **Charts**: Chart.js
 - **Server**: WAMP/Apache
 ```
-**FIGMA MOBILE DESIGN CONCEPT** https://www.figma.com/make/bYBGxzkWnzGjyYCPYIwCRd/Update-Design-with-New-Images?t=w39N40ASGbfZneBm-20&fullscreen=1
-#A6615A (Terracotta) is the main color.
+**FIGMA MOBILE DESIGN CONCEPT** https://www.figma.com/make/VN6HoMpu3RyuGTwMstSGuw/student-dashboard?t=fqjHPFaogFNLNHEL-20&fullscreen=1  The UI prototype was initially drafted using Figma’s design tools (with AI assistance for layout ideas), then refined and fully implemented manually in HTML/CSS/JS/PHP
 🙏 Thank You for Visiting!
 
 This project was created as part of the Advanced Web Programming course.

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Tutorial 1 - Exercise 3: Dashboard with Navigation
+ * Main homepage showing statistics and system features
+ */
 require_once 'db_connect.php';
 
 // Fetch database stats
@@ -30,7 +34,7 @@ if ($conn) {
 
 <body>
 
-<!-- SIDEBAR -->
+<!-- SIDEBAR (Tutorial 1 - Exercise 3: Navigation Bar) -->
 <div class="sidebar">
     <div class="sidebar-header">
         <div class="sidebar-logo">👥</div>
@@ -74,7 +78,7 @@ if ($conn) {
             <p style="font-size: 18px; margin-bottom: 30px; opacity: 0.95;">Manage students, track attendance, and analyze performance all in one place.</p>
             
             <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <a href="attendance.php" class="btn" style="background: white; color: #FFB84D; padding: 15px 30px; font-size: 16px;">
+                <a href="sessions.php" class="btn" style="background: white; color: #FFB84D; padding: 15px 30px; font-size: 16px;">
                     📝 Take Attendance
                 </a>
                 <a href="students.php" class="btn btn-outline" style="border-color: white; color: white; padding: 15px 30px; font-size: 16px;">
@@ -169,8 +173,8 @@ if ($conn) {
                 <a href="reports.php" class="btn btn-outline">
                     📈 View Reports
                 </a>
-                <a href="attendance.php" class="btn btn-secondary">
-                    📋 View Attendance
+                <a href="sessions.php" class="btn btn-secondary">
+                    📋 View Sessions
                 </a>
             </div>
         </div>
@@ -179,12 +183,10 @@ if ($conn) {
 
     <!-- FOOTER -->
     <div style="text-align: center; padding: 30px; color: #718096; font-size: 14px;">
-        <p>Student Management System © <?php echo date('Y'); ?> — Advanced Web Programming</p>
+        <p>Student Management System © <?php echo date('Y'); ?></p>
     </div>
 
 </div>
-
-<script src="script.js"></script>
 
 </body>
 </html>

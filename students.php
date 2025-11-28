@@ -39,39 +39,42 @@ if (isset($_GET['delete'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fullname = trim($_POST['fullname'] ?? '');
     $matricule = trim($_POST['matricule'] ?? '');
+    $email = trim($_POST['email'] ?? '');
     $group_id = trim($_POST['group_id'] ?? '');
     $id = $_POST['id'] ?? null;
 
-    if (empty($fullname) || empty($matricule) || empty($group_id)) {
+    if (empty($fullname) || empty($matricule) || empty($email) || empty($group_id)) {
         $error = 'All fields are required';
     } elseif (!preg_match('/^[a-zA-Z\s]+$/', $fullname)) {
         $error = 'Full name must contain only letters';
     } elseif (!preg_match('/^\d+$/', $matricule)) {
         $error = 'Matricule must contain only numbers';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Invalid email format';
     } else {
         if ($conn) {
             try {
                 if ($id) {
-                    // Update
-                    $stmt = $conn->prepare("SELECT id FROM students WHERE matricule = ? AND id != ?");
-                    $stmt->execute([$matricule, $id]);
+                    // Update - check for duplicate matricule or email
+                    $stmt = $conn->prepare("SELECT id FROM students WHERE (matricule = ? OR email = ?) AND id != ?");
+                    $stmt->execute([$matricule, $email, $id]);
                     if ($stmt->fetch()) {
-                        $error = 'This matricule is already used by another student';
+                        $error = 'This matricule or email is already used by another student';
                     } else {
-                        $stmt = $conn->prepare("UPDATE students SET fullname=?, matricule=?, group_id=? WHERE id=?");
-                        $stmt->execute([$fullname, $matricule, $group_id, $id]);
+                        $stmt = $conn->prepare("UPDATE students SET fullname=?, matricule=?, email=?, group_id=? WHERE id=?");
+                        $stmt->execute([$fullname, $matricule, $email, $group_id, $id]);
                         $message = "✅ Student updated successfully!";
                         $editStudent = null;
                     }
                 } else {
-                    // Insert
-                    $stmt = $conn->prepare("SELECT id FROM students WHERE matricule = ?");
-                    $stmt->execute([$matricule]);
+                    // Insert - check for duplicate matricule or email
+                    $stmt = $conn->prepare("SELECT id FROM students WHERE matricule = ? OR email = ?");
+                    $stmt->execute([$matricule, $email]);
                     if ($stmt->fetch()) {
-                        $error = 'A student with this matricule already exists';
+                        $error = 'A student with this matricule or email already exists';
                     } else {
-                        $stmt = $conn->prepare("INSERT INTO students(fullname, matricule, group_id) VALUES (?, ?, ?)");
-                        $stmt->execute([$fullname, $matricule, $group_id]);
+                        $stmt = $conn->prepare("INSERT INTO students(fullname, matricule, email, group_id) VALUES (?, ?, ?, ?)");
+                        $stmt->execute([$fullname, $matricule, $email, $group_id]);
                         $message = "✅ Student added successfully!";
                     }
                 }
@@ -227,6 +230,14 @@ if ($conn) {
                     </div>
 
                     <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email"
+                               value="<?php echo htmlspecialchars($editStudent['email'] ?? ''); ?>" 
+                               placeholder="e.g., student@example.com"
+                               required>
+                    </div>
+
+                    <div class="form-group">
                         <label for="group_id">Group *</label>
                         <input type="text" id="group_id" name="group_id"
                                value="<?php echo htmlspecialchars($editStudent['group_id'] ?? ''); ?>" 
@@ -270,6 +281,7 @@ if ($conn) {
                                     <th>ID</th>
                                     <th>Full Name</th>
                                     <th>Matricule</th>
+                                    <th>Email</th>
                                     <th>Group</th>
                                     <th>Created</th>
                                     <th>Actions</th>
@@ -281,6 +293,7 @@ if ($conn) {
                                         <td><strong>#<?php echo $student['id']; ?></strong></td>
                                         <td><?php echo htmlspecialchars($student['fullname']); ?></td>
                                         <td><span style="background: #E2E8F0; padding: 4px 10px; border-radius: 12px; font-weight: 600; font-size: 12px;"><?php echo htmlspecialchars($student['matricule']); ?></span></td>
+                                        <td><?php echo htmlspecialchars($student['email']); ?></td>
                                         <td><?php echo htmlspecialchars($student['group_id']); ?></td>
                                         <td><?php echo date('Y-m-d', strtotime($student['created_at'])); ?></td>
 
@@ -308,17 +321,18 @@ if ($conn) {
 
     <!-- FOOTER -->
     <div style="text-align: center; padding: 30px; color: #718096; font-size: 14px;">
-        <p>Student Management System © <?php echo date('Y'); ?> — Tutorial 2 & 3</p>
+        <p>Student Management System © <?php echo date('Y'); ?></p>
     </div>
 
 </div>
 
 <script>
-// Tutorial 2: Client-side validation
+// Tutorial 2 - Exercise 2: Client-side validation
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('studentForm');
     const fullname = document.getElementById('fullname');
     const matricule = document.getElementById('matricule');
+    const email = document.getElementById('email');
     const group_id = document.getElementById('group_id');
 
     function showError(field, message) {
@@ -344,11 +358,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return '';
     }
 
+    function validateEmail(value) {
+        if (!value.trim()) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Invalid email format (e.g., name@example.com)';
+        return '';
+    }
+
     function validateGroup(value) {
         if (!value.trim()) return 'Group is required';
         return '';
     }
 
+    // Real-time validation on blur
     fullname.addEventListener('blur', () =>
         showError(fullname, validateName(fullname.value))
     );
@@ -357,20 +378,27 @@ document.addEventListener('DOMContentLoaded', function() {
         showError(matricule, validateMatricule(matricule.value))
     );
 
+    email.addEventListener('blur', () =>
+        showError(email, validateEmail(email.value))
+    );
+
     group_id.addEventListener('blur', () =>
         showError(group_id, validateGroup(group_id.value))
     );
 
+    // Form submission validation
     form.addEventListener('submit', function(e) {
         const nameErr = validateName(fullname.value);
         const matErr  = validateMatricule(matricule.value);
+        const emailErr = validateEmail(email.value);
         const grpErr  = validateGroup(group_id.value);
 
         showError(fullname, nameErr);
         showError(matricule, matErr);
+        showError(email, emailErr);
         showError(group_id, grpErr);
 
-        if (nameErr || matErr || grpErr) {
+        if (nameErr || matErr || emailErr || grpErr) {
             e.preventDefault();
         }
     });

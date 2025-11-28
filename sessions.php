@@ -1,4 +1,8 @@
 <?php
+/**
+ * Tutorial 3 - Exercise 5: Session Management
+ * Create and manage attendance sessions
+ */
 require_once 'db_connect.php';
 
 $message = '';
@@ -150,7 +154,7 @@ $closedCount = count(array_filter($sessions, fn($s) => $s['status'] === 'closed'
 
         <div style="display:grid; grid-template-columns:1fr 2fr; gap:25px;">
 
-            <!-- Create Session Form -->
+            <!-- Create Session Form (Tutorial 3 - Exercise 5) -->
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">➕ Create New Session</h2>
@@ -268,7 +272,7 @@ $closedCount = count(array_filter($sessions, fn($s) => $s['status'] === 'closed'
 
     <!-- FOOTER -->
     <div style="text-align: center; padding: 30px; color: #718096; font-size: 14px;">
-        <p>Student Management System © <?= date('Y') ?> — Tutorial 3 - Exercise 5</p>
+        <p>Student Management System © <?= date('Y') ?> </p>
     </div>
 
 </div>

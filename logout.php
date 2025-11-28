@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tutorial 1 - Exercise 3: Logout page
+ */
 session_start();
 session_destroy();
 ?>
@@ -140,15 +143,15 @@ session_destroy();
         <div class="features-list">
             <h3>System Features</h3>
             <ul>
-                <li>Student Management</li>
-                <li>Attendance Tracking</li>
-                <li>Session Management</li>
-                <li>Reports & Analytics</li>
+                <li>Student Management </li>
+                <li>Attendance Tracking </li>
+                <li>Session Management </li>
+                <li>Reports & Analytics </li>
             </ul>
         </div>
 
         <p style="margin-top: 30px; color: #A0AEC0; font-size: 12px;">
-            © <?php echo date('Y'); ?> Student Dashboard — Advanced Web Programming
+            © <?php echo date('Y'); ?> Student Dashboard<br>
         </p>
     </div>
 </div>

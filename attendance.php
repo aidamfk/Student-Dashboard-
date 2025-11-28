@@ -145,7 +145,7 @@ if (!$sessionError && $conn) {
                 Currently sorted by: <strong id="sortModeText">None</strong>
             </div>
 
-            <!-- TABLE -->
+            <!-- TABLE (Tutorial 1 - Exercise 1) -->
             <div class="table-container">
                 <table class="table" id="attendanceTable">
                     <thead>
@@ -206,14 +206,14 @@ if (!$sessionError && $conn) {
                 </table>
             </div>
 
-            <!-- CONTROLS -->
+            <!-- EXERCISE 4 & 6: CONTROLS -->
             <div style="margin-top:25px; display:flex; gap:15px; flex-wrap:wrap;">
                 <button id="showReport" class="btn btn-primary">📊 Show Report</button>
                 <button id="highlightExcellent" class="btn btn-success">⭐ Highlight Excellent Students</button>
                 <button id="resetColors" class="btn btn-secondary">🎨 Reset Colors</button>
             </div>
 
-            <!-- REPORT SECTION -->
+            <!-- EXERCISE 4: REPORT SECTION -->
             <div id="reportSection" style="display:none; margin-top:30px; padding:25px; background:#F7FAFC; border-radius:10px;">
                 <h3 style="color:#2D3748; margin-bottom:15px;">📈 Attendance Report</h3>
                 <p style="color:#4A5568; font-size:15px; margin-bottom:20px;">
@@ -235,8 +235,8 @@ if (!$sessionError && $conn) {
 <script>
 (function(){
     const SESSION_ID = <?= $sessionId && !$sessionError ? (int)$sessionId : 'null' ?>;
-    const STORAGE_KEY = 'attendance_data_session_' + (SESSION_ID || 'local');
 
+    // EXERCISE 1: Update row with absences, participation, and highlighting
     function updateRow(row) {
         const presentChecks = row.querySelectorAll('.present-check');
         const partChecks = row.querySelectorAll('.participated-check');
@@ -247,10 +247,11 @@ if (!$sessionError && $conn) {
         row.querySelector('.absences-count').textContent = abs + ' Abs';
         row.querySelector('.participation-count').textContent = par + ' Par';
         
-        // Store absences and participation as data attributes for sorting
+        // Store absences and participation as data attributes for sorting (Exercise 7)
         row.dataset.absences = abs;
         row.dataset.participation = par;
 
+        // EXERCISE 1: Generate message based on attendance and participation
         let message = '';
         if (abs >= 5) message = 'Excluded — too many absences — You need to participate more';
         else if (abs >= 3) message = 'Warning — attendance low — You need to participate more';
@@ -259,6 +260,7 @@ if (!$sessionError && $conn) {
 
         row.querySelector('.message-cell').textContent = message;
 
+        // EXERCISE 1: Color coding based on absences
         row.classList.remove('row-green','row-yellow','row-red');
         if (abs >= 5) row.classList.add('row-red');
         else if (abs >= 3) row.classList.add('row-yellow');
@@ -388,7 +390,6 @@ if (!$sessionError && $conn) {
 
         document.getElementById('resetSort')?.addEventListener('click', function() {
             document.getElementById('sortModeIndicator').style.display = 'none';
-            // Optionally reload or reset to original order
             location.reload();
         });
     }
@@ -399,10 +400,11 @@ if (!$sessionError && $conn) {
             bindRowEvents(row);
         });
 
-        // Exercise 7
+        // Exercise 7: Search and Sort
         setupSearch();
         setupSorting();
 
+        // Save All Button
         document.getElementById('saveAll')?.addEventListener('click', function(){
             const rows = document.querySelectorAll('#attendanceBody tr[data-student-id]');
             const indicator = document.getElementById('saveStatus');
@@ -415,6 +417,7 @@ if (!$sessionError && $conn) {
             });
         });
 
+        // EXERCISE 4: Show Report Button
         document.getElementById('showReport')?.addEventListener('click', function(){
             const rows = document.querySelectorAll('#attendanceBody tr[data-student-id]');
             const total = rows.length;
@@ -451,6 +454,7 @@ if (!$sessionError && $conn) {
             });
         });
 
+        // EXERCISE 6: Highlight Excellent Students
         document.getElementById('highlightExcellent')?.addEventListener('click', function(){
             document.querySelectorAll('#attendanceBody tr[data-student-id]').forEach(row=>{
                 const abs = parseInt(row.dataset.absences) || 0;
@@ -458,6 +462,7 @@ if (!$sessionError && $conn) {
             });
         });
 
+        // EXERCISE 6: Reset Colors
         document.getElementById('resetColors')?.addEventListener('click', function(){
             document.querySelectorAll('#attendanceBody tr').forEach(row => {
                 row.classList.remove('animate-glow','hover-highlight');
@@ -465,7 +470,7 @@ if (!$sessionError && $conn) {
             });
         });
 
-        // jQuery hover & click
+        // EXERCISE 5: jQuery hover & click
         $('#attendanceBody').on('mouseenter', 'tr[data-student-id]', function(){ 
             $(this).addClass('hover-highlight'); 
         }).on('mouseleave','tr[data-student-id]', function(){ 

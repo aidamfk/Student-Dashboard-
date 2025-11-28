@@ -1,4 +1,8 @@
 <?php
+/**
+ * Tutorial 2 & 3: AJAX endpoint for saving attendance records
+ * Handles POST requests with JSON data
+ */
 require_once 'db_connect.php';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -28,7 +32,7 @@ try {
     $existing = $check->fetch(PDO::FETCH_ASSOC);
 
     if ($existing) {
-        // Update
+        // Update existing record
         $upd = $conn->prepare("
             UPDATE attendance_records
             SET status = ?, participated = ?, recorded_at = NOW()
@@ -36,7 +40,7 @@ try {
         ");
         $upd->execute([$status, $participated, $sessionId, $studentId]);
     } else {
-        // Insert
+        // Insert new record
         $ins = $conn->prepare("
             INSERT INTO attendance_records (session_id, student_id, status, participated, recorded_at)
             VALUES (?, ?, ?, ?, NOW())

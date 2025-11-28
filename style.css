@@ -1,6 +1,7 @@
 /* ========================================
-   SWEET RECIPES INSPIRED DESIGN - Student Dashboard
+   STUDENT DASHBOARD - Complete Styling
    Main Color: #FFB84D (Golden Yellow)
+   Tutorials 1, 2 & 3 - Full Implementation
    ======================================== */
 
 * {
@@ -15,7 +16,7 @@ body {
   min-height: 100vh;
 }
 
-/* ========== SIDEBAR NAVIGATION ========== */
+/* ========== SIDEBAR NAVIGATION (Tutorial 1 - Exercise 3) ========== */
 .sidebar {
   position: fixed;
   left: 0;
@@ -244,7 +245,7 @@ body {
   font-weight: 700;
 }
 
-/* ========== FORMS ========== */
+/* ========== FORMS (Tutorial 1 - Exercise 2 & Tutorial 2 - Exercise 2) ========== */
 .student-form {
   max-width: 500px;
 }
@@ -326,9 +327,17 @@ body {
   color: white;
 }
 
+.btn-success:hover {
+  background: #38A169;
+}
+
 .btn-danger {
   background: #F56565;
   color: white;
+}
+
+.btn-danger:hover {
+  background: #E53E3E;
 }
 
 .btn-outline {
@@ -337,12 +346,17 @@ body {
   color: #FFB84D;
 }
 
+.btn-outline:hover {
+  background: #FFB84D;
+  color: white;
+}
+
 .btn-sm {
   padding: 8px 16px;
   font-size: 13px;
 }
 
-/* ========== TABLES ========== */
+/* ========== TABLES (Tutorial 1 - Exercise 1) ========== */
 .table-container {
   overflow-x: auto;
   border-radius: 10px;
@@ -385,7 +399,7 @@ body {
   transform: scale(1.01);
 }
 
-/* Row colors for attendance */
+/* Tutorial 2 - Exercise 1: Row colors for attendance based on absences */
 .row-green {
   background: rgba(72, 187, 120, 0.1) !important;
 }
@@ -398,7 +412,7 @@ body {
   background: rgba(245, 101, 101, 0.1) !important;
 }
 
-/* ========== SEARCH & FILTERS ========== */
+/* ========== SEARCH & FILTERS (Tutorial 2 - Exercise 7) ========== */
 .search-filter-bar {
   display: flex;
   gap: 15px;
@@ -420,6 +434,12 @@ body {
   border-radius: 8px;
   font-size: 14px;
   background: #F7FAFC;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #FFB84D;
+  background: white;
 }
 
 .search-box::before {
@@ -484,7 +504,7 @@ body {
   border-left: 4px solid #ED8936;
 }
 
-/* ========== SORT MODE INDICATOR ========== */
+/* ========== SORT MODE INDICATOR (Tutorial 2 - Exercise 7) ========== */
 .sort-indicator {
   background: #EDF2F7;
   padding: 12px 20px;
@@ -492,11 +512,11 @@ body {
   color: #4A5568;
   font-size: 14px;
   font-weight: 600;
-  margin-top: 15px;
+  margin-bottom: 15px;
   display: inline-block;
 }
 
-/* ========== ANIMATIONS ========== */
+/* ========== ANIMATIONS (Tutorial 2 - Exercise 6) ========== */
 .animate-glow {
   animation: glowPulse 1.5s ease-in-out infinite;
 }
@@ -512,46 +532,13 @@ body {
   }
 }
 
+/* Tutorial 2 - Exercise 5: Hover highlight */
 .hover-highlight {
   background: #FFFAF0 !important;
   box-shadow: 0 4px 12px rgba(255, 184, 77, 0.2) !important;
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 70px;
-  }
-  
-  .sidebar-title,
-  .sidebar-subtitle,
-  .sidebar-menu a span {
-    display: none;
-  }
-  
-  .sidebar-menu a {
-    justify-content: center;
-    padding: 15px 0;
-  }
-  
-  .main-content {
-    margin-left: 70px;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .topbar {
-    padding: 15px 20px;
-  }
-  
-  .content-section {
-    padding: 15px 20px;
-  }
-}
-
-/* ========== CHART CONTAINER ========== */
+/* ========== CHART CONTAINER (Tutorial 2 - Exercise 4) ========== */
 .chart-container {
   background: #F7FAFC;
   padding: 20px;
@@ -575,4 +562,93 @@ body {
 .empty-state p {
   font-size: 16px;
   margin-bottom: 20px;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+  
+  .sidebar-title,
+  .sidebar-subtitle,
+  .sidebar-menu a span {
+    display: none;
+  }
+  
+  .sidebar-menu a {
+    justify-content: center;
+    padding: 15px 0;
+  }
+  
+  .main-content {
+    margin-left: 70px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    padding: 15px 20px;
+  }
+  
+  .topbar {
+    padding: 15px 20px;
+  }
+  
+  .topbar h1 {
+    font-size: 20px;
+  }
+  
+  .content-section {
+    padding: 15px 20px;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .search-filter-bar {
+    flex-direction: column;
+  }
+  
+  .filter-buttons {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-actions {
+    display: none;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+  .sidebar,
+  .topbar-actions,
+  .btn,
+  .search-filter-bar,
+  .sort-indicator {
+    display: none !important;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  body {
+    background: white;
+  }
 }

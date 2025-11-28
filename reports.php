@@ -1,4 +1,8 @@
 <?php
+/**
+ * Tutorial 1 - Exercise 3 & Tutorial 2 - Exercise 4: Reports & Analytics
+ * Display statistics and charts
+ */
 require_once 'db_connect.php';
 
 $conn = getConnection();
@@ -132,7 +136,7 @@ if ($conn) {
                 </div>
             <?php else: ?>
                 
-                <!-- CHART -->
+                <!-- CHART (Tutorial 2 - Exercise 4) -->
                 <div class="chart-container">
                     <canvas id="groupChart"></canvas>
                 </div>
